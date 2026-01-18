@@ -1,0 +1,23 @@
+version: "3.9"
+
+
+services:
+app:
+build: .
+image: secure-app:latest
+container_name: secure-app
+restart: unless-stopped
+env_file:
+- .env
+secrets:
+- db_password
+security_opt:
+- no-new-privileges:true
+read_only: true
+tmpfs:
+- /tmp
+
+
+secrets:
+db_password:
+file: ./secrets/db_password.txt
